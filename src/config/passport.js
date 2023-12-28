@@ -34,7 +34,7 @@ const initializePassport = () => {
         }
     }))
 
-    //PASSPORT REGISTER(SIGNIN)
+    //PASSPORT REGISTER(REGISTER)
     passport.use('register', new localStrategy(
         //done es como un res.status(), callback de respuesta
         { passReqToCallback: true, usernameField: 'email' }, async (req, username, password, done) => {

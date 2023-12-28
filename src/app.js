@@ -18,7 +18,7 @@ import { logger, addLogger } from "./utils/logger.js";
 import errorMiddleware from "./middlewares/index.js";
 
 const app = express();
-const PORT = 4000;
+const PORT = 3000;
 
 //Server
 const server = app.listen(PORT, () => {
@@ -47,7 +47,7 @@ app.use(cookieParser(process.env.JWT_SECRET)); //Firmo la cookie para que no pue
 app.use(
     session({
         //Configuracion de la sesion de mi app
-        //store: new fileStorage({path: './sessions', ttl: 10000, retries: 1}),
+        //store: new fileStorage({path: './session', ttl: 10000, retries: 1}),
         store: MongoStore.create({
             mongoUrl: process.env.MONGO_URL,
             mongoOptions: { useNewUrlParser: true, useUnifiedTopology: true },

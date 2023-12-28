@@ -15,7 +15,7 @@ await mongoose
     .catch((error) => console.log(`Error connecting to MongoDB Atlas: ${error}`));
 
 const expect = chai.expect
-const requester = supertest('http://localhost:4000')
+const requester = supertest('http://localhost:3000')
 
 describe('App tests', () => {
     let token = {}
@@ -30,11 +30,11 @@ describe('App tests', () => {
         password: '1234'
     };
 
-    it('Endpoint test /api/users/signin, a new user is expected to be created', async function () {
+    it('Endpoint test /api/users/register, a new user is expected to be created', async function () {
         this.timeout(7000)
 
         const { status } = await requester
-        .post('/api/users/signin')
+        .post('/api/users/register')
         .send(newUser)
         const user = await userModel.findOne({ email: newUser.email });
 
@@ -53,11 +53,11 @@ describe('App tests', () => {
         }
     });
 
-    it('Endpoint test /api/sessions/login, a user is expected to log in', async function () {
+    it('Endpoint test /api/session/login, a user is expected to log in', async function () {
         this.timeout(7000)
 
         const { status, header} = await requester
-        .post('/api/sessions/login')
+        .post('/api/session/login')
         .send(newUser);
         const tokenResult = header['set-cookie'][0];
 
@@ -79,9 +79,9 @@ describe('App tests', () => {
         logger.info(`Token: ${token.name} = ${token.value}`); 
     });
 
-    it('Endpoint test /api/sessions/current, it is expected to get the current user', async function () {
+    it('Endpoint test /api/session/current, it is expected to get the current user', async function () {
         const { statusCode, ok } = await requester
-            .get('/api/sessions/current')
+            .get('/api/session/current')
             .set('Cookie', [`jwtCookie=${token.value}`]);
         logger.info(statusCode, ok);
         logger.info(`Token: ${token.name} = ${token.value}`);

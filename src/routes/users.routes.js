@@ -1,9 +1,5 @@
 import { Router } from "express"
-import passport from "passport"
 import * as userController from "../controllers/users.controller.js"
-import CustomError from "../services/Errors/CustomError.js"
-import { EErrors } from "../services/errors/enums.js"
-import { generateUserErrorInfo } from "../services/errors/info.js"
 import { sendRecoveryEmail } from "../config/nodemailer.js"
 import crypto from 'crypto'
 import { logger } from "../utils/logger.js"
@@ -14,23 +10,7 @@ import { authorization, passportError } from "../utils/errorMessages.js"
 const userRouter = Router()
 const recoveryLinks = {}
 
-//Signin new user
-userRouter.post('/signin', (req, res, next) => {
-    const { first_name, last_name, email, password, age } = req.body
-    try {
-        if (!last_name || !first_name || !email || !password || !age) {
-            CustomError.createError({
-                name: 'Error creating user',
-                cause: generateUserErrorInfo({ first_name, last_name, email, password, age }),
-                message: 'All fields must be completed',
-                code: EErrors.USER_ERROR
-            })
-        }
-        next()
-    } catch (error) {
-        next(error)
-    }
-}, passport.authenticate('register'), userController.postUser)
+userRouter.get('/', passportError('jwt'), authorization(['user', 'admin']), userController.getUsers)
 
 userRouter.post('/password-recovery', (req, res) => {
     const { email } = req.body
@@ -40,7 +20,7 @@ userRouter.post('/password-recovery', (req, res) => {
 
         recoveryLinks[token] = { email, timestamp: Date.now() }
 
-        const recoveryLink = `http://localhost:4000/api/users/reset-password/${token}`
+        const recoveryLink = `http://localhost:3000/api/users/reset-password/${token}`
 
         sendRecoveryEmail(email, recoveryLink)
 

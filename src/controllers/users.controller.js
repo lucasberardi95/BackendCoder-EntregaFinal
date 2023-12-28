@@ -2,15 +2,14 @@ import { logger } from "../utils/logger.js"
 import { userModel } from "../models/users.models.js"
 import cartModel from "../models/carts.models.js"
 
-export const postUser = async (req, res) => {
+export const getUsers = async (req, res) => {
     try {
-        if (!req.user) {
-            return res.status(400).send({ message: 'Existing user' })
-        }
-        res.redirect(`/static/login`) //Redirect
+        const users = await userModel.find()
+        res.status(200).send({ result: 'OK', message: users })
     } catch (error) {
         logger.error(`[ERROR] - Date: ${new Date().toLocaleTimeString()} - ${error.message}`)
-        res.status(500).send({ message: `Error creating user: ${error}` })
+        res.status(500).send({ error: `Error displaying users:  ${error}` })
+
     }
 }
 

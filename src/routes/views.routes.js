@@ -21,10 +21,10 @@ viewRouter.get('/static/products', async (req, res) =>{
     })
 })
 
-viewRouter.get('/static/signin', (req, res) =>{
-    res.render('signin', {
-        rutaCSS: 'signin',
-        rutaJS: 'signin',
+viewRouter.get('/static/register', (req, res) =>{
+    res.render('register', {
+        rutaCSS: 'register',
+        rutaJS: 'register',
     })
 })
 

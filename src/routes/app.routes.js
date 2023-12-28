@@ -4,7 +4,7 @@ import cartRouter from "./carts.routes.js"
 import messageRouter from "./messages.routes.js"
 import routerMock from "./mocking.routes.js"
 import userRouter from './users.routes.js'
-import sessionRouter from './sessions.routes.js'
+import sessionRouter from './session.routes.js'
 import viewRouter from "./views.routes.js"
 import loggerRouter from "./loggers.routes.js"
 import swaggerUiExpress from 'swagger-ui-express'
@@ -18,7 +18,7 @@ router.use('/api/loggers', loggerRouter)
 router.use('/api/messages', messageRouter)
 router.use('/api/mockingproducts', routerMock)
 router.use('/api/users', userRouter)
-router.use('/api/sessions', sessionRouter)
+router.use('/api/session', sessionRouter)
 router.use('/', viewRouter)
 router.use('/apidocs', swaggerUiExpress.serve, swaggerUiExpress.setup(specs))
 
