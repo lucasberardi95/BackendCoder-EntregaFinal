@@ -20,7 +20,7 @@ cartRouter.put('/:cid', passportError('jwt'), authorization(['user', 'premium'])
 cartRouter.post('/:cid/product/:pid', passportError('jwt'), authorization(['user', 'premium']), cartController.addProductCart)
 
 //Put quantity of products on cart
-cartRouter.put('/:cid/products/:pid', passportError('jwt'), authorization(['user', 'premium']), cartController.putProdQty)
+cartRouter.put('/:cid/product/:pid', passportError('jwt'), authorization(['user', 'premium']), cartController.putProdQty)
 
 //Delete product on cart by id
 cartRouter.delete('/:cid/product/:pid', passportError('jwt'), authorization(['user', 'premium']), cartController.deleteProdOnCart)
