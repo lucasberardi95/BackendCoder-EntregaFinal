@@ -17,7 +17,7 @@ cartRouter.post('/', cartController.postCart)
 cartRouter.put('/:cid', passportError('jwt'), authorization(['user', 'premium']), cartController.putCartWithProdsArray)
 
 //Add product to cart
-cartRouter.put('/:cid/product/:pid', passportError('jwt'), authorization(['user', 'premium']), cartController.putProductToCart)
+cartRouter.post('/:cid/product/:pid', passportError('jwt'), authorization(['user', 'premium']), cartController.addProductCart)
 
 //Put quantity of products on cart
 cartRouter.put('/:cid/products/:pid', passportError('jwt'), authorization(['user', 'premium']), cartController.putProdQty)
