@@ -30,11 +30,11 @@ describe('App tests', () => {
         password: '1234'
     };
 
-    it('Endpoint test /api/users/register, a new user is expected to be created', async function () {
+    it('Endpoint test /api/session/register, a new user is expected to be created', async function () {
         this.timeout(7000)
 
         const { status } = await requester
-        .post('/api/users/register')
+        .post('/api/session/register')
         .send(newUser)
         const user = await userModel.findOne({ email: newUser.email });
 
