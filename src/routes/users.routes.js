@@ -74,4 +74,6 @@ userRouter.post('/reset-password/:token', async (req, res) => {
 
 userRouter.delete('/deleteOne/:id', passportError('jwt'), authorization(['user', 'admin']), userController.deleteUser)
 
+userRouter.delete('/deleteInactiveUsers', passportError('jwt'), authorization('admin'), userController.deleteInactiveUsers)
+
 export default userRouter
