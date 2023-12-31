@@ -1,3 +1,4 @@
+import { userModel } from "../models/users.models.js"
 import { generateToken } from "../utils/jwt.js"
 import { logger } from "../utils/logger.js"
 
@@ -21,6 +22,14 @@ export const login = async (req, res) => {
             }
             return res.status(401).send({ message: `Authentication failed` })
         }
+        //get userId & update last_connection
+        const userId = req.user._id
+        const user = await userModel.findById(userId)
+        if (user) {
+            user.last_connection = new Date()
+            await user.save()
+        }
+
         req.session.user = {
             first_name: req.user.first_name,
             last_name: req.user.last_name,
@@ -40,7 +49,7 @@ export const login = async (req, res) => {
 }
 
 export const testJWT = async (req, res) => {
-    res.status(200).send({message: req.user})
+    res.status(200).send({ message: req.user })
     //console.log(req.user.user);
     req.session.user = {
         first_name: req.user.user.first_name,
