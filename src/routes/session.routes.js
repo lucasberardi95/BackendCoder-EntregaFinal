@@ -29,7 +29,7 @@ sessionRouter.post('/login', passport.authenticate('login'), sessionController.l
 
 sessionRouter.get('/testJWT', passport.authenticate('jwt', {session: true}), sessionController.testJWT)
 
-sessionRouter.get('/current', passportError('jwt'), authorization('user'), sessionController.current)
+sessionRouter.get('/current', passportError('jwt'), authorization(['user', 'admin']), sessionController.current)
 
 sessionRouter.get('/github', passport.authenticate('github', { scope: ['user:email'] }), sessionController.github)
 
