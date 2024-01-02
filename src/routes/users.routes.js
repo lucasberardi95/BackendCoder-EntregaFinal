@@ -6,6 +6,7 @@ import { logger } from "../utils/logger.js"
 import { createHash, validatePassword } from "../utils/bcrypt.js"
 import { userModel } from "../models/users.models.js"
 import { authorization, passportError } from "../utils/errorMessages.js"
+import upload from "../config/multerConfig.js"
 
 const userRouter = Router()
 const recoveryLinks = {}
@@ -75,5 +76,19 @@ userRouter.post('/reset-password/:token', async (req, res) => {
 userRouter.delete('/deleteOne/:id', passportError('jwt'), authorization(['user', 'admin']), userController.deleteUser)
 
 userRouter.delete('/deleteInactiveUsers', passportError('jwt'), authorization('admin'), userController.deleteInactiveUsers)
+
+userRouter.post('/:id/documents', upload.array('documents'), async (req, res) => {
+    try {
+        const userId = req.params.id
+        const files = req.files.map(file => file.filename)
+
+        await userModel.findByIdAndUpdate(userId, { $push: {documents: files}})
+
+        res.status(200).send('Documents uploaded succesfully')
+    } catch (error) {
+        logger.error(`[ERROR] - Date: ${new Date().toLocaleTimeString()} - ${error.message}`)
+        res.status(500).send(`Error uploading documents: ${error}`)
+    }
+})
 
 export default userRouter
