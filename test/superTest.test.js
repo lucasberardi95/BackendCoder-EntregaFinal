@@ -136,6 +136,14 @@ describe('App tests', () => {
         logger.info(`Status: ${status}`)
     })
 
+    it ('Endpoint test/api/session/logout, it is expected to log out', async function () {
+        const { status } = await requester
+        .get('/api/session/logout')
+        .set('Cookie', [`jwtCookie=${token.value}`])
+        expect(status).to.equal(302)
+        logger.info('Logout successfull')
+    })
+
     it('Endpoint test /api/users/deleteOne/:id, it is expected to delete an user', async function () {
 
         const { status } = await requester
