@@ -99,10 +99,11 @@ describe('App tests', () => {
         })
         productId = newProduct._id
         const quantity = 1 
-
+        console.log(cid);
+        console.log(productId);
         /* await requester.post(`/api/carts/${cid}/product/${productId}`).set('Cookie', [`${token.name} = ${token.value}`]) TO ADD TWICE THE SAME PRODUCT */ 
         const { status } = await requester
-        .put(`/api/carts/${cid}/product/${productId}`)
+        .post(`/api/carts/${cid}/product/${productId}`)
         .send({ quantity })
         .set('Cookie', [`${token.name} = ${token.value}`])
 
@@ -120,7 +121,7 @@ describe('App tests', () => {
         const newQty = { quantity : 20 }
         
         const { status } = await requester
-        .put(`/api/carts/${cid}/products/${productId}`)
+        .put(`/api/carts/${cid}/product/${productId}`)
         .send(newQty)
         .set('Cookie', [`${token.name} = ${token.value}`])
 
