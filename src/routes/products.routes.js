@@ -1,7 +1,7 @@
 import { Router } from "express"
 import { passportError, authorization } from "../utils/errorMessages.js"
 import * as prodController from "../controllers/product.controller.js"
-//import CustomError from "../services/Errors/CustomError.js"
+import CustomError from "../services/Errors/CustomError.js"
 import { EErrors } from "../services/errors/enums.js"
 import { generateProductErrorInfo } from "../services/errors/info.js"
 
