@@ -1,4 +1,3 @@
-import "dotenv/config"; // Allows me to use environment variables
 import express from "express";
 import { engine } from "express-handlebars";
 import { Server } from "socket.io";

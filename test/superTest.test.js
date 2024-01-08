@@ -1,4 +1,3 @@
-import 'dotenv/config'
 import chai from 'chai'
 import supertest from 'supertest'
 import mongoose from 'mongoose'

@@ -1,4 +1,3 @@
-import 'dotenv/config'
 import mongoose from 'mongoose'
 import productModel from '../src/models/products.models.js'
 import Assert from 'assert'

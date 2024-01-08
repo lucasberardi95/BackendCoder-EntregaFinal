@@ -1,4 +1,3 @@
-import 'dotenv/config'
 import chai from 'chai'
 import mongoose from 'mongoose'
 import cartModel from '../src/models/carts.models.js'
