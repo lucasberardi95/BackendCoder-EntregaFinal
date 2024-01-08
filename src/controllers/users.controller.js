@@ -1,6 +1,7 @@
 import { logger } from "../utils/logger.js"
 import { userModel } from "../models/users.models.js"
 import cartModel from "../models/carts.models.js"
+import { sendAccountDeletionEmail } from "../config/nodemailer.js"
 
 export const getUsers = async (req, res) => {
     try {
@@ -45,6 +46,11 @@ export const deleteInactiveUsers = async (req, res) => {
             await cartModel.deleteMany({ _id: { $in: cartIds } })
             //Delete inactive users
             await userModel.deleteMany({ _id: { $in: inactiveUsers.map(user => user._id) } })
+            //Send notification mail
+            await Promise.all(inactiveUsers.map(async (user) => {
+                const userEmail = user.email
+                await sendAccountDeletionEmail(userEmail)
+            }))
             return res.status(200).send('Inactive users and their carts deleted succesfully')
         } else {
             return res.status(404).send('No inactive users found')

@@ -15,7 +15,7 @@ const transporter = nodemailer.createTransport({
 
 export const sendRecoveryEmail = (email, recoveryLink) => {
     const mailOptions = {
-        from: 'lucasberardi.19@gmail.com',
+        from: 'lucasberardi.18@gmail.com',
         to: email,
         subject: 'Password recovery link',
         text: `Click the following link ${recoveryLink}`
@@ -25,6 +25,25 @@ export const sendRecoveryEmail = (email, recoveryLink) => {
             console.log(error);
         } else {
             console.log('Email sent successfully');
+        }
+    })
+}
+
+// ...
+
+export const sendAccountDeletionEmail = (email) => {
+    const mailOptions = {
+        from: 'lucasberardi.18@gmail.com',
+        to: email,
+        subject: 'Account Deletion Notification',
+        text: 'Your account has been deleted due to inactivity.'
+    }
+
+    transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+            console.log(error)
+        } else {
+            console.log('Account deletion notification email sent successfully')
         }
     })
 }
