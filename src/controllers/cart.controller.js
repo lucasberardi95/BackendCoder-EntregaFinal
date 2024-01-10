@@ -82,7 +82,7 @@ export const addProductCart = async (req, res) => {
             existingProduct.quantity += quantity
         }
         await cart.save()
-        res.status(200).send({ result: 'OK', cart })
+        res.status(204).send() //204 para no redirigir y que la vista funcione correctamente
     } catch (error) {
         logger.error(`[ERROR] - Date: ${new Date().toLocaleTimeString()} - ${error.message}`)
         res.status(400).send({ error: `Error adding product: ${error}` })

@@ -41,7 +41,6 @@ export const login = async (req, res) => {
         res.cookie('jwtCookie', token, {
             maxAge: 43200000,
         })
-        console.log(`CURRENT CART: ${req.session.user.cartId}`);
         res.redirect(`/static/products?info=${req.user.first_name}`) //Redirect
         //res.status(200).send({ payload: req.user })
     } catch (error) {

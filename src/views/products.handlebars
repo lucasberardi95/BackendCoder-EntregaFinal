@@ -11,12 +11,13 @@
         <p>Price: ${{price}}</p>
         <p>Stock: {{stock}}</p>
         <p>Description: {{description}}</p>
-        <form action="/api/carts/{{cartId}}/product/{{_id}}" method="post">
+        <form action="/api/carts/{{../cartId}}/product/{{_id}}" method="post">
             <button id="addProductCart">Add product to cart</button>
         </form>
     </li>
     {{/each}}
 </ul>
+
 <form action="/api/session/logout" method="get">
 <button id="buttonLogOut" >Log out</button>
 </form>
