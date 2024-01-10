@@ -34,12 +34,14 @@ export const login = async (req, res) => {
             first_name: req.user.first_name,
             last_name: req.user.last_name,
             age: req.user.age,
-            email: req.user.email
+            email: req.user.email,
+            cartId: req.user.cart._id
         }
         const token = generateToken(req.user)
         res.cookie('jwtCookie', token, {
             maxAge: 43200000,
         })
+        console.log(`CURRENT CART: ${req.session.user.cartId}`);
         res.redirect(`/static/products?info=${req.user.first_name}`) //Redirect
         //res.status(200).send({ payload: req.user })
     } catch (error) {
@@ -51,12 +53,12 @@ export const login = async (req, res) => {
 export const testJWT = async (req, res) => {
     res.status(200).send({ message: req.user })
     //console.log(req.user.user);
-    req.session.user = {
+    /* req.session.user = {
         first_name: req.user.user.first_name,
         last_name: req.user.user.last_name,
         age: req.user.user.age,
         email: req.user.user.email
-    }
+    } */
 }
 
 export const current = async (req, res) => {

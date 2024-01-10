@@ -13,11 +13,14 @@ viewRouter.get('/static/chat', (req, res) => {
 viewRouter.get('/static/products', async (req, res) =>{
     const products = await productModel.find().lean()
     const info = req.query.info
+    console.log("Cart ID on view:", req.session.user.cartId);
+    const cartId = req.session.user.cartId
     res.render('products', {
         rutaCSS: 'products',
         rutaJS: 'products',
         products,
         info,
+        cartId: cartId
     })
 })
 
