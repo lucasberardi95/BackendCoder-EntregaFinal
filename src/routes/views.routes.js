@@ -23,6 +23,16 @@ viewRouter.get('/static/products', async (req, res) =>{
     })
 })
 
+viewRouter.get('/static/myCart', async (req, res) => {
+    const myCart = req.user.cart
+    console.log(myCart);
+    res.render('myCart', {
+        rutaCSS: 'myCart',
+        rutaJS: 'myCart',
+        myCart
+    })
+})
+
 viewRouter.get('/static/register', (req, res) =>{
     res.render('register', {
         rutaCSS: 'register',
