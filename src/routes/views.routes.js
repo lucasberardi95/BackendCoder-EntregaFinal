@@ -32,12 +32,12 @@ viewRouter.get('/static/myCart', async (req, res) => {
         model: 'products'
     })
     .lean()
-    //const myCart = req.user.cart
-    //console.log(myCart);
+    const cartId = req.session.user.cartId
     res.render('myCart', {
         rutaCSS: 'myCart',
         rutaJS: 'myCart',
-        myCart: userCart
+        myCart: userCart,
+        cartId: cartId
     })
 })
 

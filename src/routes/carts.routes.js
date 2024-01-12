@@ -29,7 +29,7 @@ cartRouter.delete('/:cid/product/:pid', passportError('jwt'), authorization(['us
 cartRouter.delete('/:id', passportError('jwt'), authorization(['user', 'premium']), cartController.emptyCart)
 
 //Checkout - finalize purchase
-cartRouter.post('/:cid', passportError('jwt'), authorization(['user', 'premium']), cartController.purchase)
+cartRouter.post('/purchase/:cid', passportError('jwt'), authorization(['user', 'premium']), cartController.purchase)
 
 
 export default cartRouter
