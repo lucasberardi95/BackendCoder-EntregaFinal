@@ -1,5 +1,6 @@
 import { Router } from "express";
 import productModel from '../models/products.models.js'
+import cartModel from "../models/carts.models.js";
 
 const viewRouter = Router()
 
@@ -24,12 +25,19 @@ viewRouter.get('/static/products', async (req, res) =>{
 })
 
 viewRouter.get('/static/myCart', async (req, res) => {
-    const myCart = req.user.cart
-    console.log(myCart);
+    const userCart = await cartModel
+    .findById(req.user.cart)
+    .populate({
+        path: 'products.id_prod',
+        model: 'products'
+    })
+    .lean()
+    //const myCart = req.user.cart
+    //console.log(myCart);
     res.render('myCart', {
         rutaCSS: 'myCart',
         rutaJS: 'myCart',
-        myCart
+        myCart: userCart
     })
 })
 

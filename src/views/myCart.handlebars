@@ -1,16 +1,24 @@
 <h1>My cart</h1>
 
+{{#if myCart.products.length}}
+{{#each myCart.products}}
 <div>
-    {{myCart}}
+    <h2>{{this.id_prod.title}}</h2>
+    <p>Price: ${{this.id_prod.price}}</p>
+    <p>Quantity: {{this.quantity}}</p>
 </div>
+{{/each}}
 
 <form action="/api/carts/purchase" method="post">
-<button id="buttonPurchase" >Pay and finalize Purchase</button>
+    <button id="buttonPurchase">Pay and finalize Purchase</button>
 </form>
 
 <form action="/static/products" method="get">
     <div>
-        <h2>You forgot something? keep buying!</h2>
+        <h2>You forgot something? Keep buying!</h2>
         <button>Go to products</button>
     </div>
 </form>
+{{else}}
+<p>No items in the cart.</p>
+{{/if}}
