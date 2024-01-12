@@ -12,7 +12,7 @@
         <p>Stock: {{stock}}</p>
         <p>Description: {{description}}</p>
         <form action="/api/carts/{{../cartId}}/product/{{_id}}" method="post">
-            <button id="addProductCart">Add product to cart</button>
+            <button class="addProductCart">Add product to cart</button>
         </form>
     </li>
     {{/each}}
