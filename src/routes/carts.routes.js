@@ -1,6 +1,7 @@
 import { Router } from "express"
 import { passportError, authorization } from "../utils/errorMessages.js"
 import * as cartController from "../controllers/cart.controller.js"
+import { logger } from "../utils/logger.js"
 
 const cartRouter = Router()
 
@@ -29,7 +30,14 @@ cartRouter.delete('/:cid/product/:pid', passportError('jwt'), authorization(['us
 cartRouter.delete('/:id', passportError('jwt'), authorization(['user', 'premium']), cartController.emptyCart)
 
 //Checkout - finalize purchase
-cartRouter.post('/purchase/:cid', passportError('jwt'), authorization(['user', 'premium']), cartController.purchase)
+cartRouter.post('/purchase/:cid', passportError('jwt'), authorization(['user', 'premium']), async (req, res) => {
+    try {
+        await cartController.purchase(req, res)
+    } catch (error) {
+        logger.error(`[ERROR] - Date: ${new Date().toLocaleTimeString()} - ${error.message}`)
+        res.status(500).send('Error sending purchase confirmation', error)
+    }
+})
 
 
 export default cartRouter

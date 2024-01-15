@@ -4,6 +4,7 @@ import ticketModel from "../models/ticket.models.js"
 import { userModel } from "../models/users.models.js"
 import mongoose from "mongoose"
 import { logger } from "../utils/logger.js"
+import { sendPurchaseConfirmationEmail } from "../config/nodemailer.js"
 
 export const getCarts = async (req, res) => {
     try {
@@ -211,7 +212,8 @@ export const purchase = async (req, res) => {
             amount: purchase.total,
             purchaser: purchaserEmail
         }
-        await ticketModel.create(ticket)
+        const createdTicket = await ticketModel.create(ticket)
+        await sendPurchaseConfirmationEmail(purchaserEmail, createdTicket)
         console.log(`Successful purchase, your total to pay is: $${ticket.amount}`)
         await cartModel.findByIdAndUpdate(cid, { products: [] })
         return res.status(200).send({ message: "Successful purchase" })

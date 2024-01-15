@@ -29,8 +29,6 @@ export const sendRecoveryEmail = (email, recoveryLink) => {
     })
 }
 
-// ...
-
 export const sendAccountDeletionEmail = (email) => {
     const mailOptions = {
         from: 'lucasberardi.18@gmail.com',
@@ -45,5 +43,26 @@ export const sendAccountDeletionEmail = (email) => {
         } else {
             console.log('Account deletion notification email sent successfully')
         }
+    })
+}
+
+export const sendPurchaseConfirmationEmail = (email, ticket) => {
+    const mailOptions = {
+        from: 'lucasberardi.18@gmail.com',
+        to: email,
+        subject: 'Purchase confirmation',
+        text: `Thank you for your purchase! Here is your purchase details:\n\nAmount: $${ticket.amount}\n\nItems:\n${JSON.stringify(ticket.items, null, 2)}`
+    }
+
+    return new Promise((resolve, reject) => {
+        transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+                console.log(error)
+                reject(error)
+            } else {
+                console.log('Purchase confirmation email sent successfully')
+                resolve(info)
+            }
+        })
     })
 }
