@@ -51,7 +51,7 @@ export const sendPurchaseConfirmationEmail = (email, ticket) => {
         from: 'lucasberardi.18@gmail.com',
         to: email,
         subject: 'Purchase confirmation',
-        text: `Thank you for your purchase! Here is your purchase details:\n\nAmount: $${ticket.amount}\n\nItems:\n${JSON.stringify(ticket.items, null, 2)}`
+        text: `Thank you for your purchase! Here is your purchase details:\n\nAmount: $${ticket.amount}\n\nCode: ${ticket.code}\n\nPurchase Date: ${ticket.purchase_datetime}`
     }
 
     return new Promise((resolve, reject) => {
